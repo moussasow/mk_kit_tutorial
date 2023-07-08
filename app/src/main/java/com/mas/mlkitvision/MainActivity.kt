@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         ScannerActivity.startScanner(this) { barcodes ->
             // handle result
             barcodes.forEach { barcode ->
+                binding.textCode.text = barcode.displayValue.toString()
+
                 when(barcode.valueType) {
                     Barcode.TYPE_URL -> {
                         Log.d("startScanner",  barcode.displayValue.toString())
