@@ -2,7 +2,9 @@ package com.mas.mlkitvision
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.mlkit.vision.barcode.common.Barcode
 import com.mas.mlkitvision.databinding.ActivityMainBinding
 import com.mas.mlkitvision.ui.ScannerActivity
 import com.mas.mlkitvision.util.cameraPermissionRequest
@@ -39,8 +41,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun startScanner() {
         // Start scan
-        ScannerActivity.startScanner(this) {
+        ScannerActivity.startScanner(this) { barcodes ->
             // handle result
+            barcodes.forEach { barcode ->
+                when(barcode.valueType) {
+                    Barcode.TYPE_URL -> {
+                        Log.d("startScanner",  barcode.displayValue.toString())
+                    }
+                    Barcode.TYPE_TEXT -> {
+                        Log.d("startScanner",  barcode.displayValue.toString())
+                    }
+                    Barcode.TYPE_EMAIL -> {
+                        Log.d("startScanner",  barcode.displayValue.toString())
+                    }
+                    else -> {
+                        Log.d("startScanner",  barcode.displayValue.toString())
+                    }
+                }
+
+            }
         }
     }
     private fun requestCameraPermission() {
